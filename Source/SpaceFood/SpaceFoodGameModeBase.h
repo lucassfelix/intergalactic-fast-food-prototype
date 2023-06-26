@@ -13,5 +13,5 @@ UCLASS()
 class SPACEFOOD_API ASpaceFoodGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
 };
