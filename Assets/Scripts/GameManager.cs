@@ -4,24 +4,60 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    
-    
+    public AlienCreator alienCreator;
+    public OrderCreator orderCreator;
+    public SoupMinigame SoupMinigame;
+    public JuiceMinigame juiceMinigame;
 
-    void Start()
+    [ContextMenu("Init")]
+    public void Begin()
     {
-        
-    }
 
-    public void Init()
-    {
+        var newAlien = alienCreator.GetRandomAlien();
+        var newOrder = orderCreator.GetRandomOrder();
+
+        var newSoupOrder = ScriptableObject.CreateInstance<OrderObject>();
         
+        if (newAlien.Color == AlienCreator.Color.Green)
+        {
+            newSoupOrder.recipe = newOrder.Main == OrderCreator.MainWord.Tork
+                ? OrderObject.Recipe.Juice
+                : OrderObject.Recipe.Soup;
+        }
+        else
+        {
+            newSoupOrder.recipe = newOrder.Main == OrderCreator.MainWord.Tork
+                ? OrderObject.Recipe.Soup
+                : OrderObject.Recipe.Juice;
+        }
         
+        if (newAlien.Horns == AlienCreator.Horns.WithHorns)
+        {
+            newSoupOrder.spice = newOrder.Prefix == OrderCreator.Prefix.Plá
+                ? OrderObject.Spice.Spicy
+                : OrderObject.Spice.Sweet;
+        }
+        else
+        {
+            newSoupOrder.spice = newOrder.Prefix == OrderCreator.Prefix.Plá
+                ? OrderObject.Spice.Sweet
+                : OrderObject.Spice.Spicy;
+        }
         
-    }
-    
-    // Update is called once per frame
-    void Update()
-    {
+        if (newAlien.Fur == AlienCreator.Fur.WithFur)
+        {
+            newSoupOrder.restriction = newOrder.Sufffix == OrderCreator.Suffix.Bix
+                ? OrderObject.Restriction.NoLactose
+                : OrderObject.Restriction.None;
+        }
+        else
+        {
+            newSoupOrder.restriction = newOrder.Sufffix == OrderCreator.Suffix.Bix
+                ? OrderObject.Restriction.None
+                : OrderObject.Restriction.NoLactose;
+        }
         
+        SoupMinigame.CreateCorrectAnswer(newSoupOrder,this);
+        juiceMinigame.CreateCorrectAnswer(newSoupOrder,this);
     }
 }
