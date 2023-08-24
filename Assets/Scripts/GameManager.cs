@@ -9,12 +9,14 @@ public class GameManager : MonoBehaviour
     public SoupMinigame SoupMinigame;
     public JuiceMinigame juiceMinigame;
 
+    public int score = 0;
+    
     [ContextMenu("Init")]
     public void Begin()
     {
 
         var newAlien = alienCreator.GetRandomAlien();
-        var newOrder = orderCreator.GetRandomOrder();
+        var newOrder = orderCreator.GetRandomOrder(newAlien);
 
         var newSoupOrder = ScriptableObject.CreateInstance<OrderObject>();
         

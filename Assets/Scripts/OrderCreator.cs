@@ -46,10 +46,21 @@ public class OrderCreator : MonoBehaviour
     public TextMeshProUGUI suffixText;
 
     [ContextMenu("GenerateOrder")]
-    public Order GetRandomOrder()
+    public Order GetRandomOrder(AlienCreator.Alien newAlien)
     {
         var newPrefix = (Prefix) Random.Range(0, (int)Enum.GetValues(typeof(Prefix)).Cast<Prefix>().Max() + 1);
-        var newMainWord = (MainWord) Random.Range(0, (int)Enum.GetValues(typeof(MainWord)).Cast<MainWord>().Max() + 1);
+
+        MainWord newMainWord;
+        
+        if (newAlien.Color == AlienCreator.Color.Green)
+        {
+            newMainWord = Random.Range(0, 4) == 0? MainWord.Tork : MainWord.Hork;
+        }
+        else
+        {
+            newMainWord = Random.Range(0, 4) == 0? MainWord.Hork : MainWord.Tork;
+        }
+        
         var newSuffix = (Suffix) Random.Range(0, (int)Enum.GetValues(typeof(Suffix)).Cast<Suffix>().Max() + 1);
 
         var newOrder = new Order(newPrefix, newMainWord, newSuffix);

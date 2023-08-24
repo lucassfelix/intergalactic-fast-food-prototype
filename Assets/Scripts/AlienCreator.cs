@@ -54,9 +54,9 @@ public class AlienCreator : MonoBehaviour
 
         var newAlien = new Alien(newColor, newFur, newHorn);
 
-        colorText.text = newColor.ToString();
-        furText.text = newFur.ToString();
-        hornsText.text = newHorn.ToString();
+        colorText.text = newColor == Color.Green? "Verde" : "Magenta";
+        furText.text = newFur == Fur.NoFur? "Sem pelos" : "Com pelos";
+        hornsText.text = newHorn == Horns.WithHorns? "Com chifres" : "Sem chifres";
 
         return newAlien;
     }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class SoupMinigame : MonoBehaviour
@@ -14,6 +15,8 @@ public class SoupMinigame : MonoBehaviour
     public AudioEvent sploshFeedback;
     public AudioEvent negativeFeedback;
 
+
+    public TextMeshProUGUI counter;
     
     [SerializeField]
     private List<Transform> spawnPoints;
@@ -127,10 +130,13 @@ public class SoupMinigame : MonoBehaviour
             if (_currentOrder.recipe == OrderObject.Recipe.Soup)
             {
                 AudioManager.Instance.PlayEvent(correctFeedback);
+                counter.text = $"Pontuação: {++_gameManager.score}";
             }
             else
             {
                 AudioManager.Instance.PlayEvent(negativeFeedback);
+                counter.text = $"Pontuação: {--_gameManager.score}";
+
             }
             _gameManager.Begin();
         }
